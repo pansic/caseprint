@@ -37,6 +37,18 @@ public class NewsController {
 
     @Autowired
     private NewsService newsService;
+    
+    /** 
+     * @Description 进入新增页面
+     * @author 王鑫
+     * @return  
+     */
+    @RequestMapping(value = "/static/news/findById", method = RequestMethod.GET)
+    @ResponseBody
+    public News findById() {
+       
+        return newsService.findNewsById("1");
+    }
 
     /*
      * 表单提交日期绑定
