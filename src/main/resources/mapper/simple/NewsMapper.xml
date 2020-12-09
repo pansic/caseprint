@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<insert id="insert" parameterType="cn.springboot.model.simple.News">
-		insert into t_news(id , address , create_time , description , news_time , title) values(#{id} , #{address} , #{createTime} , #{description} , #{newsTime} , #{title})
+		insert into user_print.t_news(id , address , create_time , description , news_time , title) values(#{id} , #{address} , #{createTime} , #{description} , #{newsTime} , #{title})
 	</insert>
 
 	<sql id="find_xxx">
@@ -24,7 +24,7 @@
 
 	<sql id="from_xxx">
 	    <![CDATA[
-	    	from t_news
+	    	from user_print.t_news
 	    ]]>
 	</sql>
 
@@ -60,7 +60,7 @@
 	</select>
 
 	<update id="update" parameterType="cn.springboot.model.simple.News">
-		update t_news
+		update user_print.t_news
 		<set>
 			<if test="address != null and address!='' ">
 				address = #{address},
@@ -82,7 +82,7 @@
 	</update>
 
 	<delete id="delete" parameterType="string">
-		delete from t_news where id=#{id}
+		delete from user_print.t_news where id=#{id}
 	</delete>
 
 </mapper>
