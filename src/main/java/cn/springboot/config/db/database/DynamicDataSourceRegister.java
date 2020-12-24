@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -164,12 +165,15 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         // 读取配置文件获取更多数据源，也可以通过defaultDataSource读取数据库获取更多数据源
         RelaxedPropertyResolver propertyResolver = new RelaxedPropertyResolver(env, "custom.datasource.");
         String dsPrefixs = propertyResolver.getProperty("names");
-        for (String dsPrefix : dsPrefixs.split(",")) {// 多个数据源
-            Map<String, Object> dsMap = propertyResolver.getSubProperties(dsPrefix + ".");
-            DataSource ds = buildDataSource(dsMap, env);
-            customDataSources.put(dsPrefix, ds);
-            dataBinder(ds, env);
+        if(StringUtils.isNotBlank(dsPrefixs)) {
+        	for (String dsPrefix : dsPrefixs.split(",")) {// 多个数据源
+                Map<String, Object> dsMap = propertyResolver.getSubProperties(dsPrefix + ".");
+                DataSource ds = buildDataSource(dsMap, env);
+                customDataSources.put(dsPrefix, ds);
+                dataBinder(ds, env);
+            }
         }
+        
     }
 
 }
